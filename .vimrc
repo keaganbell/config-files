@@ -37,6 +37,9 @@ nnoremap <leader>qq :Ex<Cr>
 nnoremap <leader>ee :Files<Cr>
 nnoremap <leader>bb :Buffer<Cr>
 nnoremap <leader><leader> :noh<Cr>
+nnoremap <leader>mm :make<Cr>
+nnoremap <leader>mr :make<Cr>:!(./run)<Cr>
+nnoremap <leader>rr :!(./run)<Cr>
 " movement
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz

@@ -1,0 +1,6 @@
+# peen
+*.swp
+*~
+
+# build
+build/

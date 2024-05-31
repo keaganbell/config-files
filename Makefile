@@ -7,7 +7,7 @@ BUILD_DIR=build
 BIN_DIR=$(BUILD_DIR)/bin
 EXECUTABLE=$(BUILD_DIR)/$(EXECUTABLE_NAME)
 
-RM=rm
+RM=rm -f
 CC=cc
 
 # platform detection
@@ -23,9 +23,6 @@ ifeq ($(PLATFORM), Windows)
 	CC=gcc
 	BIN_DIR=$(BUILD_DIR)\bin
 	EXECUTABLE="$(BUILD_DIR)\$(EXECUTABLE_NAME).exe"
-else
-	RM=
-	CC=
 endif
 
 
@@ -37,11 +34,19 @@ INCLUDE=-Isource/core -Isource/app
 all: $(EXECUTABLE_NAME)
 
 $(EXECUTABLE_NAME): $(BIN_DIR)/sample-app.o
+	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $(INCLUDE) $(BIN_DIR)/sample-app.o -o $(EXECUTABLE)
 
 $(BIN_DIR)/sample-app.o: source/app/sample_app.c
+	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -r source/app/sample_app.c -o $(BIN_DIR)/sample-app.o
 
+ifeq ($(PLATFORM), Windows)
 clean:
 	$(RM) $(EXECUTABLE)
 	$(RM) $(BIN_DIR)\*.o
+else ifeq ($(PLATFORM), Linux)
+clean:
+	$(RM) $(EXECUTABLE)
+	$(RM) $(BIN_DIR)/*.o
+endif

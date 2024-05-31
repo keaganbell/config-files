@@ -33,12 +33,21 @@ colorscheme gruvbox
 
 " remappings !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 let mapleader=" "
-nnoremap <leader>e :Files<Cr>
-nnoremap <leader>b :Buffer<Cr>
-nnoremap <leader>q :Ex<Cr>
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
-nnoremap <leader>h <C-w>h
-nnoremap <leader>j <C-w>j
-nnoremap <leader>k <C-w>k
-nnoremap <leader>l <C-w>l
+nnoremap <leader>qq :Ex<Cr>
+nnoremap <leader>ee :Files<Cr>
+nnoremap <leader>bb :Buffer<Cr>
+nnoremap <leader><leader> :noh<Cr>
+" movement
+nnoremap M I
+nnoremap m i
+nnoremap i k
+nnoremap k j
+nnoremap j h
+nnoremap J b
+nnoremap L w
+nnoremap K <C-d>zz
+nnoremap I <C-u>zz
+nnoremap <C-j> <C-w>h
+nnoremap <C-k> <C-w>j
+nnoremap <C-i> <C-w>k
+nnoremap <C-l> <C-w>l

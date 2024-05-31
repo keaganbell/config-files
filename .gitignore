@@ -1,0 +1,11 @@
+# text editor temp buffers
+*.swp
+*~
+
+# build artifacts
+build/
+./bob
+bob.exe
+
+# depricated files
+*.depricated

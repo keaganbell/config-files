@@ -1,8 +1,11 @@
-# peen
+# text editor temp buffers
 *.swp
 *~
 
-# build
+# build artifacts
 build/
 ./bob
 bob.exe
+
+# depricated files
+*.depricated

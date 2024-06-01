@@ -4,6 +4,7 @@ set nocompatible
 
 " editor customizations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 set nu rnu
+set nowrap
 set hlsearch
 set scrolloff=10
 set shiftwidth=4
@@ -33,17 +34,22 @@ colorscheme gruvbox
 
 " remappings !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 let mapleader=" "
-nnoremap <leader>qq :Ex<Cr>
 nnoremap <leader>ee :Files<Cr>
 nnoremap <leader>bb :Buffer<Cr>
 nnoremap <leader><leader> :noh<Cr>
 nnoremap <leader>mm :make<Cr>
 nnoremap <leader>mr :make<Cr>:!(./run)<Cr>
 nnoremap <leader>rr :!(./run)<Cr>
+
+" window manipulation
+nnoremap <leader>qv :vsp .<Cr>
+nnoremap <leader>qs :sp .<Cr>
+nnoremap <leader>tt :term<Cr>
+nnoremap <leader>L 5<C-w>>
+nnoremap <leader>H 5<C-w><
+nnoremap <leader>J 5<C-w>-
+nnoremap <leader>K 5<C-w>+
+
 " movement
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l

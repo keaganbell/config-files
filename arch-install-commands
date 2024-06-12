@@ -2,7 +2,10 @@ pacstrap -K linux linux-firmware base base-devel sof-firmware grub vim man-db ma
 
 # base apps
 sudo pacman -Syu
-sudo pacman -S firefox openssh cmake neofetch tmux git
+sudo pacman -S firefox openssh cmake neofetch git noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+
+# terminal emulator
+sudo pacman -S kitty
 
 # xorg
 sudo pacman -S xorg xorg-xinit xorg-server xorg-apps xorg-drivers 

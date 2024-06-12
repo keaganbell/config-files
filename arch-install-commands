@@ -1,6 +1,20 @@
-pacstrap -K linux linux-firmware base base-devel sof-firmware grub vim man-db man-pages texinfo less git
-sudo pacman -S firefox openssh neofetch i3 xorg-server xorg-xinit xorg-xeyes xf86-video-nouveau xf86-video-vesa xf86-video-intel xf86-video-fbdev tmux cmake
+pacstrap -K linux linux-firmware base base-devel sof-firmware grub vim man-db man-pages texinfo less
+
+# base apps
 sudo pacman -Syu
+sudo pacman -S firefox openssh cmake neofetch tmux git
+
+# xorg
+sudo pacman -S xorg xorg-xinit xorg-server xorg-apps xorg-drivers 
+
+# dwm
+git clone https://github.com/sr/dwm.git
+make clean install
+add "exec dwm" to .xinitrc
+sudo pacman -S dmenu
+
+# xfce4 i3
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xeyes xf86-video-nouveau xf86-video-vesa xf86-video-intel xf86-video-fbdev 
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 git clone https://github.com/keaganbell/config-files.git

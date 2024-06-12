@@ -28,6 +28,7 @@ call plug#end()
 " choose theme
 set background=dark
 colorscheme gruvbox
+let &t_ut=''
 
 " make fzf appear in window
 " let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
@@ -45,6 +46,8 @@ nnoremap <leader>bw :term<Cr>./win64-debug-build.sh<Cr>
 nnoremap <leader>cl :term<Cr>./linux-debug-clean.sh<Cr>
 nnoremap <leader>cw :term<Cr>./win64-debug-clean.sh<Cr>
 nnoremap <leader>mm :make<Cr>
+nnoremap <leader>ma :term<Cr>make all<Cr>
+nnoremap <leader>mh :term<Cr>make libgame.so<Cr>
 nnoremap <leader>mr :make<Cr>:!(./run)<Cr>
 nnoremap <leader>rr :!(./run)<Cr>
 

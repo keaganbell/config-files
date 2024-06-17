@@ -41,13 +41,9 @@ nnoremap <leader>bb :Buffer<Cr>
 nnoremap <leader>qq :Ex<Cr>
 
 " building code
-nnoremap <leader>bl :term<Cr>./linux-debug-build.sh<Cr>
-nnoremap <leader>bw :term<Cr>./win64-debug-build.sh<Cr>
-nnoremap <leader>cl :term<Cr>./linux-debug-clean.sh<Cr>
-nnoremap <leader>cw :term<Cr>./win64-debug-clean.sh<Cr>
 nnoremap <leader>mm :make<Cr>
-nnoremap <leader>ma :term<Cr>make all<Cr>
-nnoremap <leader>mh :term<Cr>make libgame.so<Cr>
+nnoremap <leader>ma :make clean all<Cr>
+nnoremap <leader>mg :make game<Cr>
 nnoremap <leader>mr :make<Cr>:!(./run)<Cr>
 nnoremap <leader>rr :!(./run)<Cr>
 

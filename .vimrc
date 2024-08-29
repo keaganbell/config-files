@@ -39,6 +39,7 @@ nnoremap <leader><leader> :noh<Cr>
 nnoremap <leader>ee :Files<Cr>
 nnoremap <leader>bb :Buffer<Cr>
 nnoremap <leader>qq :Ex<Cr>
+nnoremap <leader>d "_d
 
 " building code
 nnoremap <leader>mm :make<Cr>

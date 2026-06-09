@@ -1,10 +1,17 @@
 " == Appearance ========================================
 
 " color scheme
+set termguicolors
+set background=dark
 colorscheme gruvbox
 
-" font
+" gui
+if has('win32') || has('win64')
 set guifont=Consolas:h13:cANSI:qDRAFT
+else
+set guifont=Liberation\ Mono\ 12
+endif
+
 set encoding=utf8
 
 " cursor
@@ -18,6 +25,7 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
+set guioptions-=T
 
 " spacing
 set nowrap
@@ -28,6 +36,9 @@ set expandtab
 
 " auto indent
 set ai
+
+" fix switch braces
+set cino=l1
 
 " smart indent
 set si
@@ -51,6 +62,8 @@ augroup custom_c_syntax
     autocmd!
     autocmd FileType c,cpp syntax keyword cType u8 u16 u32 u64 i8 i16 i32 i64 b8 b16 b32 b64 f32 f64 function exposed_function
 augroup end
+
+let g:is_bash=1
 
 
 " == General ===========================================
@@ -103,32 +116,57 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" compile
+
+" --- OS Detection & Setup --------------------------------------
+if has('win32') || has('win64')
+    let s:build_script = 'build.bat'
+    let g:project_exe  = 'main.exe'
+    let s:sep          = '\'
+else
+    " Assumes Linux/macOS
+    let s:build_script = 'build.sh'
+    let g:project_exe  = 'main'
+    let s:sep          = '/'
+endif
+
+" --- Compile Project -------------------------------------------
 function! Build()
-    let l:root = findfile('build.bat', expand('%:p:h') . ';')
+    let l:root = findfile(s:build_script, expand('%:p:h') . ';')
     let l:root = fnamemodify(l:root, ':p:h')
+    
     if !empty(l:root)
         let l:old_makeprg = &makeprg
-        let &makeprg = l:root . '\build.bat'
+        let &makeprg = l:root . s:sep . s:build_script
+
+        " save old working dir
+        let l:old_wd = getcwd()
+        execute 'lcd ' . fnameescape(l:root . s:sep . 'build')
+
         silent make!
+
+        " restore working dir
+        execute 'lcd ' . fnameescape(l:old_wd)
+
         let &makeprg = l:old_makeprg
         copen
     else
-        echoerr "Could not find build.bat"
+        echoerr "Could not find " . s:build_script
     endif
 endfunction
 
-map <C-S-b> :call Build()<cr>
+" It is best practice to use nnoremap to prevent recursive mapping
+nnoremap <C-S-b> :call Build()<CR>
 
-" run project
-let g:project_exe = "main.exe"
+" --- Run Project -----------------------------------------------
 function! Run()
-    let l:root = findfile('build.bat', expand('%:p:h') . ';')
+    let l:root = findfile(s:build_script, expand('%:p:h') . ';')
     let l:root = fnamemodify(l:root, ':p:h')
+    
     if !empty(l:root)
-        let l:exe_path = l:root . '\build\' . g:project_exe
-        if filereadable(l:exe_path)
-            execute 
+        let l:exe_path = l:root . s:sep . 'build' . s:sep . g:project_exe
+        
+        " Use executable() as a fallback for Linux binaries without extensions
+        if filereadable(l:exe_path) || executable(l:exe_path)
             let l:old_makeprg = &makeprg
             let &makeprg = '"' . l:exe_path . '"'
             silent make!
@@ -137,10 +175,13 @@ function! Run()
         else
             echoerr "Executable not found: " . l:exe_path
         endif
+    else
+        echoerr "Could not find project root (missing " . s:build_script . ")"
     endif
 endfunction
 
-map <F5> :call Run()<cr>
+nnoremap <F5> :call Run()<CR>
+
 
 " open/close the quickfix window
 nnoremap <leader>qo :copen<cr>
